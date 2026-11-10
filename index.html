@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover">
+<title>浮空岛快递 · Sky Island Courier</title>
+<meta name="description" content="驾驶珊瑚橙小飞机，穿越风环，把快递送到每一座浮空岛。">
+<meta name="theme-color" content="#4fb0ff">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="浮空岛快递">
+<meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" type="image/png" href="icons/icon-192.png">
+<link rel="stylesheet" href="css/game.css">
+</head>
+<body>
+
+<!-- SVG 图标库 -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M8.5 5.5v13M15.5 5.5v13" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M8 5.2v13.6a.8.8 0 0 0 1.2.7l10.6-6.8a.8.8 0 0 0 0-1.4L9.2 4.5A.8.8 0 0 0 8 5.2z" fill="currentColor"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="M4 9.5v5h3.6l4.4 3.6V5.9L7.6 9.5H4z" fill="currentColor"/><path d="M15.4 9a4.2 4.2 0 0 1 0 6M17.8 6.6a7.6 7.6 0 0 1 0 10.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="i-mute" viewBox="0 0 24 24"><path d="M4 9.5v5h3.6l4.4 3.6V5.9L7.6 9.5H4z" fill="currentColor"/><path d="M15.5 9.5l5 5M20.5 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-cam" viewBox="0 0 24 24"><path d="M4.2 8.2h3l1.4-2.2h6.8l1.4 2.2h3a.8.8 0 0 1 .8.8v9.4a.8.8 0 0 1-.8.8H4.2a.8.8 0 0 1-.8-.8V9a.8.8 0 0 1 .8-.8z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="13.4" r="3.3" fill="none" stroke="currentColor" stroke-width="2"/></symbol>
+    <symbol id="i-full" viewBox="0 0 24 24"><path d="M4.5 9V4.5H9M15 4.5h4.5V9M19.5 15v4.5H15M9 19.5H4.5V15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="M4 11.2 12 4.4l8 6.8V19a1 1 0 0 1-1 1h-4.2v-5.4H9.2V20H5a1 1 0 0 1-1-1z" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-redo" viewBox="0 0 24 24"><path d="M19.2 12a7.2 7.2 0 1 1-2.2-5.2" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M19.6 3.8v4.6h-4.6" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13.4 2.4 5 13.6a.6.6 0 0 0 .5 1h5l-1 7.6a.4.4 0 0 0 .7.3l8.4-11.2a.6.6 0 0 0-.5-1h-5l1-7.6a.4.4 0 0 0-.7-.3z" fill="currentColor"/></symbol>
+    <symbol id="i-box" viewBox="0 0 24 24"><path d="M12 3 4 7v10l8 4 8-4V7z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M4 7l8 4 8-4M12 11v10" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-ring" viewBox="0 0 24 24"><circle cx="12" cy="12" r="7.6" fill="none" stroke="currentColor" stroke-width="3.2"/></symbol>
+    <symbol id="i-free" viewBox="0 0 24 24"><path d="M3 15.5c3.2 0 3.6-7 7-7s3.2 7 6.6 7c1.8 0 2.7-1 4.4-1" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><circle cx="19.6" cy="6.4" r="2" fill="currentColor"/></symbol>
+    <symbol id="i-plane" viewBox="0 0 24 24"><path d="M21.4 11.2 14 9.6 9.6 3.4a.7.7 0 0 0-.6-.3H7.4a.5.5 0 0 0-.5.6L8.6 9.2l-3.8-.5-1.4-2.3a.6.6 0 0 0-.5-.3H1.6a.4.4 0 0 0-.4.5L2.4 12 1.2 16.4a.4.4 0 0 0 .4.5h1.3a.6.6 0 0 0 .5-.3l1.4-2.3 3.8-.5-1.7 5.5a.5.5 0 0 0 .5.6H9a.7.7 0 0 0 .6-.3l4.4-6.2 7.4-1.6a1 1 0 0 0 0-1.6z" fill="currentColor" transform="translate(0 0.2)"/></symbol>
+    <symbol id="i-flag" viewBox="0 0 24 24"><path d="M6 21V4M6 5h11l-2.6 3.8L17 12.6H6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.9 6.4.9-4.7 4.4 1.2 6.4L12 17.3l-5.7 3.1 1.2-6.4-4.7-4.4 6.4-.9z" fill="currentColor" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/></symbol>
+    <symbol id="i-nav" viewBox="0 0 24 24"><path d="M12 2.6 19.6 20 12 16l-7.6 4z" fill="currentColor" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3.1" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 2.8v2.6M12 18.6v2.6M2.8 12h2.6M18.6 12h2.6M5.5 5.5l1.8 1.8M16.7 16.7l1.8 1.8M18.5 5.5l-1.8 1.8M7.3 16.7l-1.8 1.8" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></symbol>
+    <symbol id="i-share" viewBox="0 0 24 24"><path d="M12 3.5v11M8 7.3l4-4 4 4M6.5 11H5.8A1.3 1.3 0 0 0 4.5 12.3v7A1.3 1.3 0 0 0 5.8 20.6h12.4a1.3 1.3 0 0 0 1.3-1.3v-7a1.3 1.3 0 0 0-1.3-1.3h-.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  </defs>
+</svg>
+
+<canvas id="c"></canvas>
+<div id="speedfx"></div>
+<div id="vignette"></div>
+
+<!-- ============ HUD ============ -->
+<div id="hud" hidden>
+  <div class="hud-tl">
+    <div class="route glass">
+      <svg class="ic"><use href="#i-plane"/></svg>
+      <div class="route-txt">
+        <b data-i18n="route">天空邮局 · 第 7 航线</b>
+        <div id="routeDots" class="dots"></div>
+      </div>
+    </div>
+    <div class="radar-wrap glass-round"><canvas id="radar" width="200" height="200"></canvas><i class="radar-n" id="radarN">N</i></div>
+  </div>
+
+  <div class="hud-tc">
+    <div id="orderCard" class="order glass">
+      <div class="order-ico"><svg class="ic"><use href="#i-box"/></svg></div>
+      <div class="order-main">
+        <div class="order-top"><span id="orderIdx" class="chip">1/5</span><b id="orderName">—</b></div>
+        <div id="orderNote" class="order-note"></div>
+      </div>
+      <div class="order-dist"><b id="orderDist">0</b><small>m</small></div>
+    </div>
+    <div id="timerPill" class="timer glass" hidden><svg class="ic"><use href="#i-flag"/></svg><b id="timerVal">90</b></div>
+  </div>
+
+  <div class="hud-tr">
+    <div class="btns">
+      <button id="bPause" class="rbtn glass-round" aria-label="pause" data-i18n-aria="pause"><svg class="ic"><use href="#i-pause"/></svg></button>
+      <button id="bSound" class="rbtn glass-round" aria-label="sound" data-i18n-aria="sound"><svg class="ic"><use href="#i-sound"/></svg></button>
+      <button id="bLang" class="rbtn glass-round txt" aria-label="language" data-i18n-aria="language">EN</button>
+      <button id="bCam" class="rbtn glass-round" aria-label="camera" data-i18n-aria="camera"><svg class="ic"><use href="#i-cam"/></svg></button>
+      <button id="bFull" class="rbtn glass-round" aria-label="fullscreen" data-i18n-aria="fullscreen" hidden><svg class="ic"><use href="#i-full"/></svg></button>
+    </div>
+    <div class="score glass">
+      <div class="score-main"><small data-i18n="score">得分</small><b id="score">0</b></div>
+      <div class="score-best"><small data-i18n="best">最高分</small><b id="bestHud">0</b></div>
+    </div>
+    <div id="combo" class="combo" hidden><span>x</span><b id="comboVal">2</b></div>
+  </div>
+
+  <div class="hud-bc">
+    <div class="gauge glass">
+      <div class="g-item"><small data-i18n="speed">速度</small><b id="spd">0</b><em>km/h</em></div>
+      <div class="boost-bar"><i id="boostFill"></i><svg class="ic"><use href="#i-bolt"/></svg></div>
+      <div class="g-item"><small data-i18n="alt">高度</small><b id="alt">0</b><em>m</em></div>
+    </div>
+  </div>
+
+  <div class="keys-hint glass" id="keysHint">
+    <span><kbd>W</kbd><kbd>S</kbd><i data-i18n="k_ud">升降</i></span>
+    <span><kbd>A</kbd><kbd>D</kbd><i data-i18n="k_turn">转向</i></span>
+    <span><kbd class="wide">Space</kbd><i data-i18n="k_boost">加速</i></span>
+    <span><kbd>P</kbd><i data-i18n="k_pause">暂停</i></span>
+    <span><kbd>M</kbd><i data-i18n="k_mute">静音</i></span>
+    <span><kbd>C</kbd><i data-i18n="k_cam">视角</i></span>
+  </div>
+
+  <!-- 触控区 -->
+  <div id="touchL" class="touch-zone left"></div>
+  <div id="touchR" class="touch-zone right"></div>
+  <div id="stick" class="stick idle"><div class="stick-ring"><i class="arr u"></i><i class="arr d"></i><i class="arr l"></i><i class="arr r"></i></div><div id="stickKnob" class="stick-knob"></div></div>
+  <div id="boostBtn" class="boost-btn"><svg class="ring-svg" viewBox="0 0 100 100"><circle class="bg" cx="50" cy="50" r="45"/><circle id="boostArc" class="fg" cx="50" cy="50" r="45" pathLength="100"/></svg><div class="b-inner"><svg class="ic"><use href="#i-bolt"/></svg><span data-i18n="boost">加速</span></div></div>
+
+  <div id="marker" class="marker" hidden><i class="m-arrow"><svg class="ic"><use href="#i-nav"/></svg></i><div class="m-label"><b id="markerName"></b><span id="markerDist"></span></div></div>
+  <div id="toast" class="toast"></div>
+  <div id="warn" class="warn" hidden></div>
+</div>
+
+<!-- ============ 开始界面 ============ -->
+<section id="menu" class="screen" hidden>
+  <div class="menu-top">
+    <button id="mSound" class="rbtn glass-round" aria-label="sound"><svg class="ic"><use href="#i-sound"/></svg></button>
+    <button id="mLang" class="rbtn glass-round txt" aria-label="language">EN</button>
+    <button id="mFull" class="rbtn glass-round" aria-label="fullscreen" hidden><svg class="ic"><use href="#i-full"/></svg></button>
+  </div>
+  <div class="menu-body">
+    <div class="menu-left">
+      <div class="eyebrow glass"><svg class="ic"><use href="#i-plane"/></svg><span data-i18n="route">天空邮局 · 第 7 航线</span></div>
+      <h1 data-i18n="title">浮空岛快递</h1>
+      <p class="tagline" data-i18n="tagline"></p>
+      <div class="modes" id="modes">
+        <button class="mode" data-mode="orders"><span class="m-ico c1"><svg class="ic"><use href="#i-box"/></svg></span><span class="m-txt"><b data-i18n="mode_orders">快递订单</b><small data-i18n="mode_orders_d"></small></span><em class="m-best"></em></button>
+        <button class="mode" data-mode="dash"><span class="m-ico c2"><svg class="ic"><use href="#i-ring"/></svg></span><span class="m-txt"><b data-i18n="mode_dash">风环冲刺</b><small data-i18n="mode_dash_d"></small></span><em class="m-best"></em></button>
+        <button class="mode" data-mode="free"><span class="m-ico c3"><svg class="ic"><use href="#i-free"/></svg></span><span class="m-txt"><b data-i18n="mode_free">自由飞行</b><small data-i18n="mode_free_d"></small></span><em class="m-best"></em></button>
+      </div>
+    </div>
+    <div class="menu-right glass">
+      <div id="brief" class="brief"></div>
+      <div class="help">
+        <div class="help-kb"><span><kbd>W</kbd><kbd>S</kbd><i data-i18n="k_ud"></i></span><span><kbd>A</kbd><kbd>D</kbd><i data-i18n="k_turn"></i></span><span><kbd class="wide">Space</kbd><i data-i18n="k_boost"></i></span><span class="dim" data-i18n="k_arrows"></span></div>
+        <div class="help-touch"><span><svg class="ic"><use href="#i-nav"/></svg><i data-i18n="t_stick"></i></span><span><svg class="ic"><use href="#i-bolt"/></svg><i data-i18n="t_boost"></i></span></div>
+      </div>
+      <button id="btnStart" class="cta"><svg class="ic"><use href="#i-plane"/></svg><span data-i18n="start">起飞</span></button>
+    </div>
+  </div>
+  <div id="installTip" class="install glass" hidden>
+    <svg class="ic"><use href="#i-share"/></svg><span data-i18n="install_tip"></span><button id="installClose" aria-label="close">×</button>
+  </div>
+  <div class="credit" data-i18n="credit"></div>
+</section>
+
+<!-- ============ 暂停 ============ -->
+<section id="pause" class="screen dim" hidden>
+  <div class="card glass">
+    <h2 data-i18n="paused">已暂停</h2>
+    <div class="card-btns">
+      <button id="pResume" class="cta sm"><svg class="ic"><use href="#i-play"/></svg><span data-i18n="resume">继续</span></button>
+      <button id="pRestart" class="btn"><svg class="ic"><use href="#i-redo"/></svg><span data-i18n="restart">重新开始</span></button>
+      <button id="pHome" class="btn"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="home">返回主页</span></button>
+    </div>
+    <div class="toggles">
+      <button class="tog" id="tSound"><span data-i18n="sound">音效</span><i class="sw"></i></button>
+      <button class="tog" id="tInvert"><span data-i18n="invert">上下反转</span><i class="sw"></i></button>
+      <button class="tog" id="tLite"><span data-i18n="lite">省电画质</span><i class="sw"></i></button>
+      <button class="tog" id="tLang"><span data-i18n="language">语言</span><b id="tLangVal">中文</b></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 结算 ============ -->
+<section id="result" class="screen dim" hidden>
+  <div class="card glass result">
+    <div class="res-head"><div class="res-ico"><svg class="ic"><use href="#i-box"/></svg></div><h2 id="resTitle">全部送达！</h2></div>
+    <div class="stars" id="resStars"></div>
+    <div class="res-score"><small data-i18n="score">得分</small><b id="resScore">0</b></div>
+    <div id="resNew" class="newrec" hidden data-i18n="new_record">新纪录！</div>
+    <div class="res-grid" id="resGrid"></div>
+    <div class="card-btns row">
+      <button id="rAgain" class="cta sm"><svg class="ic"><use href="#i-redo"/></svg><span data-i18n="again">再飞一次</span></button>
+      <button id="rHome" class="btn"><svg class="ic"><use href="#i-home"/></svg><span data-i18n="home">返回主页</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 竖屏提示 ============ -->
+<section id="rotate" class="screen rotate" hidden>
+  <div class="rot-phone"><i></i></div>
+  <h2 data-i18n="rotate">请横屏使用</h2>
+  <p data-i18n="rotate_sub"></p>
+</section>
+
+<!-- ============ 加载 ============ -->
+<section id="loading" class="screen loading">
+  <div class="load-plane"><svg class="ic"><use href="#i-plane"/></svg></div>
+  <b data-i18n="loading">正在装载包裹…</b>
+  <div class="load-bar"><i id="loadFill"></i></div>
+</section>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

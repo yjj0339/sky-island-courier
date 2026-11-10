@@ -1,0 +1,20 @@
+{
+  "name": "浮空岛快递 · Sky Island Courier",
+  "short_name": "浮空岛快递",
+  "description": "驾驶珊瑚橙小飞机，穿越风环，把快递送到每一座浮空岛。",
+  "lang": "zh-CN",
+  "start_url": "./index.html",
+  "scope": "./",
+  "id": "./index.html",
+  "display": "fullscreen",
+  "display_override": ["fullscreen", "standalone"],
+  "orientation": "landscape",
+  "background_color": "#4fb0ff",
+  "theme_color": "#4fb0ff",
+  "categories": ["games"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
